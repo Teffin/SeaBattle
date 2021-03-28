@@ -5,7 +5,7 @@
 
 import Foundation
 
-enum SimbolMap: String {
+enum SymbolMap: String {
     case Ship = "#"
     case Terra = "."
     case Miss = "*"
@@ -14,7 +14,7 @@ enum SimbolMap: String {
     case Error = "?"
 }
 
-func GetSimbol(ch: Int) -> SimbolMap {
+func GetSymbol(ch: Int) -> SymbolMap {
     switch(ch) {
     case 1...10:
         return .Ship
@@ -26,9 +26,16 @@ func GetSimbol(ch: Int) -> SimbolMap {
         return .Empty
     case -3:
         return .Hit
-    case -4:
-        return .Hit
     default:
         return .Error
     }
+}
+
+enum SymbolField: Int {
+    case Ship = 1
+    case Terra = 0
+    case Miss = -1
+    case Empty = -2
+    case Hit = -3
+    case Error = -4
 }

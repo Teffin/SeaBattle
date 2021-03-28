@@ -13,8 +13,8 @@ class Game {
 
     init() {
         isStepFirstPlayer = true
-        player1 = Player(filler: RandomFillField(),stepper: ParsSteper())
-        player2 = Player(filler: RandomFillField(), stepper: AISteper())
+        player1 = Player(filler: RandomFillField(),stepper: ParsStepper())
+        player2 = Player(filler: RandomFillField(), stepper: AIStepper())
         printer = PrintConsoleMap()
     }
 
@@ -26,26 +26,23 @@ class Game {
     }
 
     func StepPlayer(isStepFirstPlayer: Bool, friend: Player, enemy: Player) -> Bool {
-        let (coordX, coordY) = friend.GetCoordinate(map: friend.GetEnemyMap())
+        let (coordY, coordX) = friend.GetCoordinate(map: friend.GetEnemyMap())
         let (kill, shot) = enemy.MakeShot(coordY: coordY, coordX: coordX)
-        let value = shot ? -3 : -1
+        let value = shot ? SymbolField.Hit.rawValue : SymbolField.Miss.rawValue
         friend.SetEnemyMap(coordY: coordY, coordX: coordX, value: value,kill: kill)
-        if shot { //TODO
+        enemy.SetFriendMap(coordY: coordY, coordX: coordX, value: value,kill: kill)
+        if shot {
             return isStepFirstPlayer
         } else {
             return !isStepFirstPlayer
         }
-
     }
 
-
     func StartGame() {
-
         while player1.isAlive && player2.isAlive {
             if isStepFirstPlayer {
-                isStepFirstPlayer = StepPlayer(isStepFirstPlayer: isStepFirstPlayer, friend: player1, enemy: player2)
                 game.printer.PrintMap(player: game.GetPlayer1())
-               // game.printer.printMessage() TODO
+                isStepFirstPlayer = StepPlayer(isStepFirstPlayer: isStepFirstPlayer, friend: player1, enemy: player2)
             } else {
                 isStepFirstPlayer = StepPlayer(isStepFirstPlayer: isStepFirstPlayer, friend: player2, enemy: player1)
             }

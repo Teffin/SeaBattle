@@ -44,7 +44,7 @@ class PrintConsoleMap : PrinterMap {
 
 
     private func printSimbolColour(ch: Int) {
-        PrintColour(color: GetColour(ch: ch), text: GetSimbol(ch: ch).rawValue, terminator: "")
+        PrintColour(color: GetColour(ch: ch), text: GetSymbol(ch: ch).rawValue, terminator: "")
     }
     private func printDot<T>(ch: T)
     {
@@ -84,7 +84,7 @@ class PrintConsoleMap : PrinterMap {
     }
 
     func PrintTitle() {
-        PrintColour(color: ANSIColors.green, text: "+ + + YourField + + +  ", terminator: "\t\t")
+        PrintColour(color: ANSIColors.green, text: " + + + YourField + + +", terminator: "\t\t")
         PrintColour(color: ANSIColors.red, text: " + + + EnemyField + + + ")
     }
     func PrintBottom() {

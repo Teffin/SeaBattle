@@ -7,4 +7,5 @@ import Foundation
 
 protocol Stepper {
     func GetCoordinate(map: Map) -> (coordY: Int, coordX: Int)
-}
+    func SetField(sameMap: inout Map, coordY: Int, coordX: Int, value: Int, kill: Bool)
+    }

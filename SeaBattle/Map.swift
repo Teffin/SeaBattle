@@ -19,10 +19,13 @@ struct Map {
 
     private var ships: Array<Int> = [4,3,3,2,2,2,1,1,1,1]
 
-    func isBadCoordinate(y: Int, x: Int) -> Bool {
+    public func isBadCoordinate(y: Int, x: Int) -> Bool {
         (x < 0) || (x > 9) || (y < 0) || (y > 9)
     }
 
+    func GetField() -> Array<Array<Int>> {
+        field
+    }
     func GetShips() -> Array<Int> {
         ships
     }
@@ -45,26 +48,31 @@ struct Map {
     }
 
     mutating func SetShips(ship: Int) -> Int {
-        self.ships[ship - 1] -= 1
-        return self.ships[ship - 1]
+        if (ship - 1) >= 0 && (ship - 1) < ships.count {
+            if self.ships[ship - 1] > 0 {
+                self.ships[ship - 1] -= 1
+            }
+            return self.ships[ship - 1]
+        }
+        return 0
     }
 
     mutating func SetFieldPoint(coordY: Int, coordX: Int, value: Int) {
         self.field[coordY][coordX] = value
     }
 
-    mutating func SetVoidField(coordY: Int, coordX: Int) {
-        if field[coordY][coordX] == -3 {
-            SetFieldPoint(coordY: coordY, coordX: coordX, value: -4)
+    mutating func SetVoidField(coordY: Int, coordX: Int, lastCoordY: Int, lastCoordX: Int) {
+        if field[coordY][coordX] == SymbolField.Hit.rawValue {
             for j in -1...1 {
                 for i in -1...1{
-                    if !isBadCoordinate(y: coordY + j, x: coordX + i) && j + i != 0 {
-                        SetVoidField(coordY: coordY + j,coordX: coordX + i)
+                    if !isBadCoordinate(y: coordY + j, x: coordX + i)
+                               && (coordY + j != lastCoordY || coordX + i != lastCoordX) && (j != 0 || i != 0) {
+                        SetVoidField(coordY: coordY + j,coordX: coordX + i, lastCoordY: coordY, lastCoordX: coordX)
                     }
                 }
             }
-        } else if self.field[coordY][coordX] != -3 && self.field[coordY][coordX] != -4 {
-            SetFieldPoint(coordY: coordY, coordX: coordX, value: -2)
+        } else if self.field[coordY][coordX] == 0 || self.field[coordY][coordX] == SymbolField.Hit.rawValue{
+            self.field[coordY][coordX] = SymbolField.Empty.rawValue
         }
     }
 }
