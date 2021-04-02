@@ -45,12 +45,16 @@ class Game {
     }
 
     func StartMatch() {
+       // var stepId: Int = 0
         StartGame()
         while player1.isAlive && player2.isAlive {
             if isStepFirstPlayer {
                 game.printer.PrintMap(player: game.GetPlayer1())
                 game.printer.PrintLastStep(logLastStep: player2.GetLastStep())
-                player2.FreeLogLastStep()
+               // if let logLastStep = player2.GetLastStep && logLastStep.id > stepId {
+                   player2.FreeLogLastStep()
+               // stepId = logLastStep.id
+               //}
                 isStepFirstPlayer = StepPlayer(isStepFirstPlayer: isStepFirstPlayer, friend: player1, enemy: player2)
             } else {
                 isStepFirstPlayer = StepPlayer(isStepFirstPlayer: isStepFirstPlayer, friend: player2, enemy: player1)
