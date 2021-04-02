@@ -5,8 +5,9 @@
 
 import Foundation
 
-protocol PrinterMap {
+protocol PrinterGame {
 
     func PrintMap(player: Player)
+    func PrintLastStep(logLastStep: [ShotValue?]?)
     func AnnouncementOfResults(haveShip: Bool)
 }

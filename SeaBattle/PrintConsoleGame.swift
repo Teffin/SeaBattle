@@ -4,6 +4,7 @@
 //
 
 import Foundation
+
 enum ANSIColors: String {
     case black = "\u{001B}[0;30m"
     case red = "\u{001B}[0;31m"
@@ -38,18 +39,28 @@ func GetColour(ch: Int) -> ANSIColors {
         return .`default`
     }
 }
-class PrintConsoleMap : PrinterMap {
-    let coordX = "abcdefghij"
+class PrintConsoleGame: PrinterGame {
+    let winMessage = "Congratulations!!! You Win!!!"
+    let loseMessage = "So sad, your Lost...Try again - you can do it"
+    let enemyTitle = " + + + EnemyField + + + "
+    let yourTitle = " + + + YourField + + +"
+    let bottomLine = "--------------------------------------------------"
+    let shotShipText = "He shot your ship"
+    let missText = "He missed"
+    let killText = " and kill"
+    let notKillText = ", but not kill"
+    let enemyText = "Enemy shot to"
     let coordY = 10
+    let coordXLine = Array<Character>("abcdefghij")
 
-
-    private func printSimbolColour(ch: Int) {
+    private func printSymbolColour(ch: Int) {
         PrintColour(color: GetColour(ch: ch), text: GetSymbol(ch: ch).rawValue, terminator: "")
     }
+
     private func printDot<T>(ch: T)
     {
         if let ch = ch as? Int {
-            printSimbolColour(ch: ch)
+            printSymbolColour(ch: ch)
         } else {
             print("\(ch)", terminator: "")
         }
@@ -67,7 +78,7 @@ class PrintConsoleMap : PrinterMap {
     {
         if j == 0 {
             print("   ", terminator: "")
-            printLine(line: Array<Character>(coordX))
+            printLine(line: coordXLine)
         } else {
             if j < 10{
                 print(" ", terminator: "")
@@ -84,34 +95,64 @@ class PrintConsoleMap : PrinterMap {
     }
 
     func PrintTitle() {
-        PrintColour(color: ANSIColors.green, text: " + + + YourField + + +", terminator: "\t\t")
-        PrintColour(color: ANSIColors.red, text: " + + + EnemyField + + + ")
+        PrintColour(color: ANSIColors.green, text: yourTitle, terminator: "\t\t")
+        PrintColour(color: ANSIColors.red, text: enemyTitle)
     }
     func PrintBottom() {
-        PrintColour(color: ANSIColors.magenta, text: "--------------------------------------------------")
+        PrintColour(color: ANSIColors.magenta, text: bottomLine)
         print()
     }
+
+    func ClearConsole() {
+        print("\u{001B}[2J", terminator: "")
+        //        var clearScreen = Process()
+//        clearScreen.launchPath = "/usr/bin/clear"
+//        clearScreen.arguments = []
+//        clearScreen.launch()
+//        clearScreen.waitUntilExit()
+    }
+
     public func PrintMap(player: Player) {
+        ClearConsole()
         PrintTitle()
         for j in 0...coordY {
             printBlock(j: j, line: player.GetMap().GetFieldLine(coordY: j == 0 ? 0 : (j - 1)))
             print("\t\t", terminator: "")
             printBlock(j: j, line: player.GetEnemyMap().GetFieldLine(coordY: j == 0 ? 0 : (j - 1)))
-            print()
+            print(".")
         }
         PrintBottom()
     }
+
     public func AnnouncementOfResults(haveShip: Bool) {
         var color: ANSIColors
         var text: String
         if haveShip {
             color = ANSIColors.green
-            text = "Congratulations!!! You Win!!!"
+            text = winMessage
         } else {
             color = ANSIColors.cyan
-            text = "So sad, your Lost...Try again - you can do it"
+            text = loseMessage
         }
         PrintColour(color: color, text: text)
     }
+    public func PrintLastStep(logLastStep: ShotValue?) {
+        if let log = logLastStep {
+            print(enemyText, terminator: " ")
+            PrintColour(color: ANSIColors.yellow ,text: "\(coordXLine[log.coordX])\(log.coordY + 1)", terminator: ".")
+            PrintColour(color: log.shot ? ANSIColors.red : ANSIColors.cyan, text: " \(log.shot ? shotShipText : missText)", terminator: "" )
+            if log.shot {
+                PrintColour(color: log.shot ? ANSIColors.red : ANSIColors.cyan, text: "\(log.kill ? killText : notKillText)", terminator: "" )
+            }
+           print()
+        }
+    }
 
+    public func PrintLastStep(logLastStep: [ShotValue?]?) {
+        if let logs = logLastStep {
+            for log in logs {
+                PrintLastStep(logLastStep: log)
+            }
+        }
+    }
 }

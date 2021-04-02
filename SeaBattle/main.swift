@@ -9,4 +9,4 @@
 import Foundation
 
 let game = Game()
-game.StartGame()
+game.StartMatch()

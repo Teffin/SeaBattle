@@ -127,6 +127,7 @@ class AIStepper: Stepper {
             }
         }
     }
+
     func SetHelpPoint(map: inout Map, coordY: Int, coordX: Int) {
         if CheckAroundShot(map: map, coordY: coordY, coordX: coordX) {
             ClearHelpField(map: &map, coordY: coordY, coordX: coordX, lastCoordY: coordY, lastCoordX: coordX)

@@ -8,14 +8,14 @@ import Foundation
 class Game {
     private var player1: Player
     private var player2: Player
-    private var printer: PrinterMap
+    private var printer: PrinterGame
     private var isStepFirstPlayer: Bool
 
     init() {
         isStepFirstPlayer = true
-        player1 = Player(filler: RandomFillField(),stepper: ParsStepper())
-        player2 = Player(filler: RandomFillField(), stepper: AIStepper())
-        printer = PrintConsoleMap()
+        player1 = Player(filler: RandomFillField(), stepper: ParsStepper(), logger: LogGame())
+        player2 = Player(filler: RandomFillField(), stepper: AIStepper(), logger: LogGame())
+        printer = PrintConsoleGame()
     }
 
     func GetPlayer1() -> Player {
@@ -31,17 +31,26 @@ class Game {
         let value = shot ? SymbolField.Hit.rawValue : SymbolField.Miss.rawValue
         friend.SetEnemyMap(coordY: coordY, coordX: coordX, value: value,kill: kill)
         enemy.SetFriendMap(coordY: coordY, coordX: coordX, value: value,kill: kill)
-        if shot {
-            return isStepFirstPlayer
-        } else {
-            return !isStepFirstPlayer
-        }
+
+        return shot ? isStepFirstPlayer : !isStepFirstPlayer
     }
 
     func StartGame() {
+        var isPlay = true
+        let menu = MainMenu()
+        while isPlay {
+            menu.Printmenu()
+            isPlay = false
+        }
+    }
+
+    func StartMatch() {
+        StartGame()
         while player1.isAlive && player2.isAlive {
             if isStepFirstPlayer {
                 game.printer.PrintMap(player: game.GetPlayer1())
+                game.printer.PrintLastStep(logLastStep: player2.GetLastStep())
+                player2.FreeLogLastStep()
                 isStepFirstPlayer = StepPlayer(isStepFirstPlayer: isStepFirstPlayer, friend: player1, enemy: player2)
             } else {
                 isStepFirstPlayer = StepPlayer(isStepFirstPlayer: isStepFirstPlayer, friend: player2, enemy: player1)
@@ -50,4 +59,6 @@ class Game {
         game.printer.PrintMap(player: game.GetPlayer1())
         game.printer.AnnouncementOfResults(haveShip: player1.isAlive)
     }
+
+
 }

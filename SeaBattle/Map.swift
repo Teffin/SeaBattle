@@ -6,27 +6,19 @@
 import Foundation
 
 struct Map {
-        private var field: Array<Array<Int>> = [[0,0,0,0,0,0,0,0,0,0],
-                                                [0,0,0,0,0,0,0,0,0,0],
-                                                [0,0,0,0,0,0,0,0,0,0],
-                                                [0,0,0,0,0,0,0,0,0,0],
-                                                [0,0,0,0,0,0,0,0,0,0],
-                                                [0,0,0,0,0,0,0,0,0,0],
-                                                [0,0,0,0,0,0,0,0,0,0],
-                                                [0,0,0,0,0,0,0,0,0,0],
-                                                [0,0,0,0,0,0,0,0,0,0],
-                                                [0,0,0,0,0,0,0,0,0,0]]
 
-    private var ships: Array<Int> = [4,3,3,2,2,2,1,1,1,1]
+    private var field = Array(repeating:([Int](repeating: 0, count: 10)), count: 10)
+
+    private var ships: [Int] = [4,3,3,2,2,2,1,1,1,1]
 
     public func isBadCoordinate(y: Int, x: Int) -> Bool {
         (x < 0) || (x > 9) || (y < 0) || (y > 9)
     }
 
-    func GetField() -> Array<Array<Int>> {
+    func GetField() -> Array<[Int]> {
         field
     }
-    func GetShips() -> Array<Int> {
+    func GetShips() -> [Int] {
         ships
     }
 

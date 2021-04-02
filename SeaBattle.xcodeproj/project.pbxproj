@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5D04506CFFB8CA5CBF425099 /* PrintConsoleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0456A6880A38E0FB8905A3 /* PrintConsoleMap.swift */; };
+		5D045004663A7A27C9E3A731 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D045268E5441345A2727498 /* Logger.swift */; };
+		5D04506CFFB8CA5CBF425099 /* PrintConsoleGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0456A6880A38E0FB8905A3 /* PrintConsoleGame.swift */; };
+		5D0451BC863131AEA561FD21 /* LogGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D045FFA765FA084DE4C3D11 /* LogGame.swift */; };
 		5D04526F6BFD9257822AFCE8 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D04545F133CF4E43DD8AEC5 /* Map.swift */; };
 		5D0452FC6A3E863513F8D580 /* SymbolMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D045AA265608F5079192835 /* SymbolMap.swift */; };
 		5D045383A986842963D98E6A /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0458FD46AE7353CC4932F3 /* Game.swift */; };
@@ -16,7 +18,9 @@
 		5D0454E94E5B362B673529D5 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D04577F5F2AA4C92A48034C /* Player.swift */; };
 		5D045711AB74553465D022B2 /* RandomFillField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D045AF2E20164205AC52B25 /* RandomFillField.swift */; };
 		5D0458317561211D078C165C /* Filler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D04524049E6B2C015502A7B /* Filler.swift */; };
-		5D045BC68404CB5D47C62490 /* PrinterMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D045E7432D6FC1989FF97D9 /* PrinterMap.swift */; };
+		5D04592E264990C1CFE08C7E /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 5D04576D4AEA8027E2720C6A /* Makefile */; };
+		5D045B961853433BBD8802AE /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D04597D65BAFBF9F410B1A7 /* MainMenu.swift */; };
+		5D045BC68404CB5D47C62490 /* PrinterGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D045E7432D6FC1989FF97D9 /* PrinterGame.swift */; };
 		5D045DB73CD3D8C399C99C10 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D045D2AAE37AFA2FC54C800 /* main.swift */; };
 		5D045F8DF35B320396DBD960 /* Stepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D04532A5348BBDE7463BF43 /* Stepper.swift */; };
 /* End PBXBuildFile section */
@@ -35,18 +39,22 @@
 
 /* Begin PBXFileReference section */
 		5D04524049E6B2C015502A7B /* Filler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filler.swift; sourceTree = "<group>"; };
+		5D045268E5441345A2727498 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		5D04532A5348BBDE7463BF43 /* Stepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stepper.swift; sourceTree = "<group>"; };
 		5D04545F133CF4E43DD8AEC5 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		5D045628B662D033F04903A2 /* ParsStepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParsStepper.swift; sourceTree = "<group>"; };
-		5D0456A6880A38E0FB8905A3 /* PrintConsoleMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintConsoleMap.swift; sourceTree = "<group>"; };
+		5D0456A6880A38E0FB8905A3 /* PrintConsoleGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintConsoleGame.swift; sourceTree = "<group>"; };
+		5D04576D4AEA8027E2720C6A /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		5D04577F5F2AA4C92A48034C /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		5D045807906930CD63526F70 /* SeaBattle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SeaBattle; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D0458FD46AE7353CC4932F3 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		5D04597D65BAFBF9F410B1A7 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		5D045AA265608F5079192835 /* SymbolMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymbolMap.swift; sourceTree = "<group>"; };
 		5D045AF2E20164205AC52B25 /* RandomFillField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomFillField.swift; sourceTree = "<group>"; };
 		5D045D2AAE37AFA2FC54C800 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		5D045E7432D6FC1989FF97D9 /* PrinterMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrinterMap.swift; sourceTree = "<group>"; };
+		5D045E7432D6FC1989FF97D9 /* PrinterGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrinterGame.swift; sourceTree = "<group>"; };
 		5D045ED1B3A7293896A31E07 /* AIStepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIStepper.swift; sourceTree = "<group>"; };
+		5D045FFA765FA084DE4C3D11 /* LogGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,10 +87,14 @@
 				5D045AF2E20164205AC52B25 /* RandomFillField.swift */,
 				5D045ED1B3A7293896A31E07 /* AIStepper.swift */,
 				5D045628B662D033F04903A2 /* ParsStepper.swift */,
-				5D045E7432D6FC1989FF97D9 /* PrinterMap.swift */,
-				5D0456A6880A38E0FB8905A3 /* PrintConsoleMap.swift */,
+				5D045E7432D6FC1989FF97D9 /* PrinterGame.swift */,
+				5D0456A6880A38E0FB8905A3 /* PrintConsoleGame.swift */,
 				5D04577F5F2AA4C92A48034C /* Player.swift */,
 				5D0458FD46AE7353CC4932F3 /* Game.swift */,
+				5D04576D4AEA8027E2720C6A /* Makefile */,
+				5D045268E5441345A2727498 /* Logger.swift */,
+				5D04597D65BAFBF9F410B1A7 /* MainMenu.swift */,
+				5D045FFA765FA084DE4C3D11 /* LogGame.swift */,
 			);
 			path = SeaBattle;
 			sourceTree = "<group>";
@@ -153,10 +165,14 @@
 				5D045711AB74553465D022B2 /* RandomFillField.swift in Sources */,
 				5D04549722A55A980CDDE459 /* AIStepper.swift in Sources */,
 				5D0454726A727358DB5A184C /* ParsStepper.swift in Sources */,
-				5D045BC68404CB5D47C62490 /* PrinterMap.swift in Sources */,
-				5D04506CFFB8CA5CBF425099 /* PrintConsoleMap.swift in Sources */,
+				5D045BC68404CB5D47C62490 /* PrinterGame.swift in Sources */,
+				5D04506CFFB8CA5CBF425099 /* PrintConsoleGame.swift in Sources */,
 				5D0454E94E5B362B673529D5 /* Player.swift in Sources */,
 				5D045383A986842963D98E6A /* Game.swift in Sources */,
+				5D04592E264990C1CFE08C7E /* Makefile in Sources */,
+				5D045004663A7A27C9E3A731 /* Logger.swift in Sources */,
+				5D045B961853433BBD8802AE /* MainMenu.swift in Sources */,
+				5D0451BC863131AEA561FD21 /* LogGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
