@@ -7,6 +7,10 @@ import Foundation
 
 class ParsStepper: Stepper {
 
+    let unCorrectCoordinateText = "Coordinate is not correct! For Example : g 5"
+    let missCoordinateText = "Attack this coordinate is not reason, please choose another Point!"
+    let inputText = "Input coordinate: "
+
     func ValidateAndParseCharacter(character: Character) -> Int {
         let letters  = "abcdefghij"
         var count = 0
@@ -53,15 +57,15 @@ class ParsStepper: Stepper {
         var isValidCoordinate = false
 
         while !isValidCoordinate {
-            print("Input coordinate: ", terminator: "")
+            print(inputText, terminator: "")
             var input = readLine()
             input = input?.lowercased()
             input = String(input!.filter { !" \n\t\r".contains($0) })
             (isValidCoordinate, line, row) = ValidateAndParseInput(input: input)
             if !isValidCoordinate {
-                print("Coordinate is not correct! For Example : g 5")
+                print(unCorrectCoordinateText)
             } else if field[row][line] < 0 {
-                print("Attack this coordinate is not reason, please choose another Point!")
+                print(missCoordinateText)
                 isValidCoordinate = false
             }
         }

@@ -39,19 +39,39 @@ func GetColour(ch: Int) -> ANSIColors {
         return .`default`
     }
 }
+
 class PrintConsoleGame: PrinterGame {
     let winMessage = "Congratulations!!! You Win!!!"
     let loseMessage = "So sad, your Lost...Try again - you can do it"
     let enemyTitle = " + + + EnemyField + + + "
     let yourTitle = " + + + YourField + + +"
-    let bottomLine = "--------------------------------------------------"
+    let bottomLine = "------------------------------------------------------"
     let shotShipText = "He shot your ship"
     let missText = "He missed"
     let killText = " and kill"
     let notKillText = ", but not kill"
     let enemyText = "Enemy shot to"
+    let successShot = "Good Shot ┐(・。・┐) ♪"
+    let quitText = "See you! s( ^ ‿ ^)-b"
+    let toDoText = "//TODO (⊃｡•́‿•̀｡)⊃━☆ﾟ.*･｡ﾟ"
+    let ship = """
+               ─────────▄▄─▄▄─▄▄───────────\n\
+               ──────────█──█──█───────────\n\
+               ───▒▒▒▒▒S▒▒▒E▒▒▒A▒▒▒▒▒▒▒────\n\
+               ─▓▓B▓▓▓A▓▓▓T▓▓▓T▓▓▓L▓▓▓E▓▓▓─\n\
+               ──▀██████████████████████▀──\n
+               """
+    let menuStartText = "1 - Start Game ⎈"
+    let menuSettingsText = "2 - Settings ✎"
+    let menuExitText = "3 - Quit Game ☂"
+
     let coordY = 10
     let coordXLine = Array<Character>("abcdefghij")
+    private var isClearConsole = true
+
+    public func SetSettingsPrint(clearConsole: Bool = true) {
+        isClearConsole = clearConsole
+    }
 
     private func printSymbolColour(ch: Int) {
         PrintColour(color: GetColour(ch: ch), text: GetSymbol(ch: ch).rawValue, terminator: "")
@@ -89,7 +109,9 @@ class PrintConsoleGame: PrinterGame {
             printLine(line: line)
         }
     }
-
+    func PrintToDo() {
+        PrintColour(color: ANSIColors.yellow, text: toDoText)
+    }
     func PrintColour(color: ANSIColors, text: String, terminator: String = "\n") {
         print(color.rawValue + text + ANSIColors.default.rawValue, terminator: terminator)
     }
@@ -98,18 +120,25 @@ class PrintConsoleGame: PrinterGame {
         PrintColour(color: ANSIColors.green, text: yourTitle, terminator: "\t\t")
         PrintColour(color: ANSIColors.red, text: enemyTitle)
     }
+
     func PrintBottom() {
         PrintColour(color: ANSIColors.magenta, text: bottomLine)
         print()
     }
 
     func ClearConsole() {
-        print("\u{001B}[2J", terminator: "")
+        if isClearConsole {
+            print("\u{001B}[2J", terminator: "")
+        }
         //        var clearScreen = Process()
 //        clearScreen.launchPath = "/usr/bin/clear"
 //        clearScreen.arguments = []
 //        clearScreen.launch()
 //        clearScreen.waitUntilExit()
+    }
+    public func PrintQuitMessage() {
+        ClearConsole()
+        PrintColour(color: ANSIColors.magenta, text: quitText)
     }
 
     public func PrintMap(player: Player) {
@@ -119,7 +148,7 @@ class PrintConsoleGame: PrinterGame {
             printBlock(j: j, line: player.GetMap().GetFieldLine(coordY: j == 0 ? 0 : (j - 1)))
             print("\t\t", terminator: "")
             printBlock(j: j, line: player.GetEnemyMap().GetFieldLine(coordY: j == 0 ? 0 : (j - 1)))
-            print(".")
+            print()
         }
         PrintBottom()
     }
@@ -136,6 +165,7 @@ class PrintConsoleGame: PrinterGame {
         }
         PrintColour(color: color, text: text)
     }
+
     public func PrintLastStep(logLastStep: ShotValue?) {
         if let log = logLastStep {
             print(enemyText, terminator: " ")
@@ -154,5 +184,17 @@ class PrintConsoleGame: PrinterGame {
                 PrintLastStep(logLastStep: log)
             }
         }
+    }
+
+    public func PrintSuccessShot() {
+        PrintColour(color: ANSIColors.green, text: successShot)
+    }
+
+    func PrintMenu() {
+        ClearConsole()
+        PrintColour(color: ANSIColors.green, text: ship)
+        PrintColour(color: ANSIColors.magenta, text: menuStartText)
+        PrintColour(color: ANSIColors.magenta, text: menuSettingsText)
+        PrintColour(color: ANSIColors.magenta, text: menuExitText)
     }
 }

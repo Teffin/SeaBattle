@@ -36,25 +36,39 @@ class Game {
     }
 
     func StartGame() {
-        var isPlay = true
-        let menu = MainMenu()
-        while isPlay {
-            menu.Printmenu()
-            isPlay = false
+        var menu = Menu.mainMenu
+        printer.PrintMenu()
+        while menu != Menu.quitGame {
+            menu = InputPlayer.ParsePlayerInput(menu: menu)
+            switch menu {
+            case .startMatch:
+                StartMatch()
+            case .mainMenu:
+                printer.PrintMenu()
+            case .settings:
+                printer.PrintToDo()
+                sleep(1)
+                printer.PrintMenu()
+            case .quitGame:
+                printer.PrintQuitMessage()
+            }
         }
     }
 
     func StartMatch() {
-       // var stepId: Int = 0
-        StartGame()
+        var lastStepId: Int = 0
         while player1.isAlive && player2.isAlive {
             if isStepFirstPlayer {
                 game.printer.PrintMap(player: game.GetPlayer1())
-                game.printer.PrintLastStep(logLastStep: player2.GetLastStep())
-               // if let logLastStep = player2.GetLastStep && logLastStep.id > stepId {
-                   player2.FreeLogLastStep()
-               // stepId = logLastStep.id
-               //}
+                let logLastEnemyStep = player2.GetLastStep()
+                let logLastShot = player1.GetLastShot()
+
+                if logLastEnemyStep?.last != nil && logLastEnemyStep?.last??.id ?? 0 > lastStepId {
+                    game.printer.PrintLastStep(logLastStep: logLastEnemyStep)
+                    lastStepId = logLastEnemyStep?.last?!.id ?? 0
+                } else if logLastShot?.shot == true {
+                    game.printer.PrintSuccessShot()
+                }
                 isStepFirstPlayer = StepPlayer(isStepFirstPlayer: isStepFirstPlayer, friend: player1, enemy: player2)
             } else {
                 isStepFirstPlayer = StepPlayer(isStepFirstPlayer: isStepFirstPlayer, friend: player2, enemy: player1)
@@ -63,6 +77,4 @@ class Game {
         game.printer.PrintMap(player: game.GetPlayer1())
         game.printer.AnnouncementOfResults(haveShip: player1.isAlive)
     }
-
-
 }

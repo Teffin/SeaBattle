@@ -10,4 +10,9 @@ protocol PrinterGame {
     func PrintMap(player: Player)
     func PrintLastStep(logLastStep: [ShotValue?]?)
     func AnnouncementOfResults(haveShip: Bool)
+    func PrintSuccessShot()
+    func PrintQuitMessage()
+    func PrintMenu()
+    func PrintToDo()
+    func SetSettingsPrint(clearConsole: Bool)
 }
