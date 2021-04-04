@@ -7,12 +7,13 @@ import Foundation
 
 protocol PrinterGame {
 
-    func PrintMap(player: Player)
+    func PrintMap(player: Player?)
     func PrintLastStep(logLastStep: [ShotValue?]?)
     func AnnouncementOfResults(haveShip: Bool)
-    func PrintSuccessShot()
+    func PrintShot(logLastShot: ShotValue?)
     func PrintQuitMessage()
     func PrintMenu()
     func PrintToDo()
+    func PrintSettings(settings: Settings)
     func SetSettingsPrint(clearConsole: Bool)
 }

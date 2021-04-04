@@ -9,6 +9,7 @@ class InputPlayer {
 
     static let inputText = "Input number for choose: "
     static let anyKeyText = "Press Enter to continue..."
+    static let somethingWrong = "SomeThingWrong"
     init() {
 
     }
@@ -26,14 +27,10 @@ class InputPlayer {
         return(false, 0)
     }
 
-    static func ParsePlayerInput(menu: Menu) -> Menu {
+    static func GetCase() -> Int {
         var isValidInput = false
         var parsedNum = 0
-        if menu == Menu.startMatch {
-            print(anyKeyText, terminator: "")
-            readLine()
-            return .mainMenu
-        }
+
         while !isValidInput {
             print(inputText, terminator: "")
             var input = readLine()
@@ -41,7 +38,35 @@ class InputPlayer {
             input = String(input!.filter { !" \n\t\r".contains($0) })
             (isValidInput, parsedNum) = ValidateInput(input: input)
         }
-        switch(parsedNum) {
+        return parsedNum
+    }
+
+    static func PrintAndWaitAnyKey() {
+        print(anyKeyText, terminator: "")
+        readLine()
+    }
+
+    static func PrintError() {
+        print(somethingWrong)
+    }
+
+    static func ParsePlayerInput(menu: Menu) -> Menu {
+        var parsedNumForMenu = 0
+
+        switch(menu) {
+        case .mainMenu:
+            parsedNumForMenu = GetCase()
+        case .startMatch:
+            PrintAndWaitAnyKey()
+            return .mainMenu
+        case .settings:
+            return .mainMenu
+        case .quitGame:
+            PrintError()
+            exit(1)
+        }
+
+        switch(parsedNumForMenu) {
         case 1:
             return .startMatch
         case 2:

@@ -5,41 +5,6 @@
 
 import Foundation
 
-enum ANSIColors: String {
-    case black = "\u{001B}[0;30m"
-    case red = "\u{001B}[0;31m"
-    case green = "\u{001B}[0;32m"
-    case yellow = "\u{001B}[0;33m"
-    case blue = "\u{001B}[0;34m"
-    case magenta = "\u{001B}[0;35m"
-    case cyan = "\u{001B}[0;36m"
-    case white = "\u{001B}[0;37m"
-    case `default` = "\u{001B}[0;0m"
-}
-
-func + (left: ANSIColors, right: String) -> String {
-    return left.rawValue + right
-}
-
-func GetColour(ch: Int) -> ANSIColors {
-    switch (ch) {
-    case 1...10:
-        return .green
-    case 0:
-        return .white
-    case -1:
-        return .black
-    case -2:
-        return .black
-    case -3:
-        return .red
-    case -4:
-        return .red
-    default:
-        return .`default`
-    }
-}
-
 class PrintConsoleGame: PrinterGame {
     let winMessage = "Congratulations!!! You Win!!!"
     let loseMessage = "So sad, your Lost...Try again - you can do it"
@@ -51,7 +16,8 @@ class PrintConsoleGame: PrinterGame {
     let killText = " and kill"
     let notKillText = ", but not kill"
     let enemyText = "Enemy shot to"
-    let successShot = "Good Shot ┐(・。・┐) ♪"
+    let successShot = " Good Shot ┐(・。・┐) ♪"
+    let successKill = " The ship is blown up ~~~~~~~[]=¤ԅ( ◔益◔ )ᕗ"
     let quitText = "See you! s( ^ ‿ ^)-b"
     let toDoText = "//TODO (⊃｡•́‿•̀｡)⊃━☆ﾟ.*･｡ﾟ"
     let ship = """
@@ -61,12 +27,11 @@ class PrintConsoleGame: PrinterGame {
                ─▓▓B▓▓▓A▓▓▓T▓▓▓T▓▓▓L▓▓▓E▓▓▓─\n\
                ──▀██████████████████████▀──\n
                """
-    let menuStartText = "1 - Start Game ⎈"
-    let menuSettingsText = "2 - Settings ✎"
-    let menuExitText = "3 - Quit Game ☂"
+
 
     let coordY = 10
     let coordXLine = Array<Character>("abcdefghij")
+
     private var isClearConsole = true
 
     public func SetSettingsPrint(clearConsole: Bool = true) {
@@ -74,7 +39,7 @@ class PrintConsoleGame: PrinterGame {
     }
 
     private func printSymbolColour(ch: Int) {
-        PrintColour(color: GetColour(ch: ch), text: GetSymbol(ch: ch).rawValue, terminator: "")
+        PrintColour(color: GetColourByInt(ch: ch), text: GetSymbol(ch: ch).rawValue, terminator: "")
     }
 
     private func printDot<T>(ch: T)
@@ -130,24 +95,20 @@ class PrintConsoleGame: PrinterGame {
         if isClearConsole {
             print("\u{001B}[2J", terminator: "")
         }
-        //        var clearScreen = Process()
-//        clearScreen.launchPath = "/usr/bin/clear"
-//        clearScreen.arguments = []
-//        clearScreen.launch()
-//        clearScreen.waitUntilExit()
     }
+
     public func PrintQuitMessage() {
         ClearConsole()
         PrintColour(color: ANSIColors.magenta, text: quitText)
     }
 
-    public func PrintMap(player: Player) {
+    public func PrintMap(player: Player?) {
         ClearConsole()
         PrintTitle()
         for j in 0...coordY {
-            printBlock(j: j, line: player.GetMap().GetFieldLine(coordY: j == 0 ? 0 : (j - 1)))
+            printBlock(j: j, line: player!.GetMap().GetFieldLine(coordY: j == 0 ? 0 : (j - 1)))
             print("\t\t", terminator: "")
-            printBlock(j: j, line: player.GetEnemyMap().GetFieldLine(coordY: j == 0 ? 0 : (j - 1)))
+            printBlock(j: j, line: player!.GetEnemyMap().GetFieldLine(coordY: j == 0 ? 0 : (j - 1)))
             print()
         }
         PrintBottom()
@@ -186,15 +147,52 @@ class PrintConsoleGame: PrinterGame {
         }
     }
 
-    public func PrintSuccessShot() {
-        PrintColour(color: ANSIColors.green, text: successShot)
+    public func PrintShot(logLastShot: ShotValue?) {
+        let shot = logLastShot
+        if shot != nil {
+            PrintColour(color: ANSIColors.yellow ,text: "\(coordXLine[shot!.coordX])\(shot!.coordY + 1)", terminator: ".")
+        }
+        if logLastShot?.shot == true {
+            PrintColour(color: ANSIColors.green, text: successShot, terminator: ".")
+        }
+        if logLastShot?.kill == true {
+            PrintColour(color: ANSIColors.red, text: successKill, terminator: ".")
+        }
+        if shot != nil {
+            print()
+        }
+    }
+
+    func PrintSettings(settings: Settings) {
+        ClearConsole()
+        PrintColour(color: ANSIColors.green, text: ship)
+
+        for (index, pos) in SettingsText.ListAll().enumerated() {
+            var turnOn: Bool? = nil
+
+            switch pos {
+            case SettingsText.printerClearText:
+                turnOn = settings.GetSettings().consoleClear
+            case SettingsText.stepFirstText:
+                turnOn = settings.GetSettings().stepFirstPlayer
+            default:
+                turnOn = nil
+            }
+            if let isTurn = turnOn {
+                PrintColour(color: ANSIColors.magenta, text: "\(index + 1) - \(pos): \(isTurn)")
+            } else {
+                PrintColour(color: ANSIColors.magenta, text: "\(index + 1) - \(pos)")
+            }
+        }
     }
 
     func PrintMenu() {
         ClearConsole()
         PrintColour(color: ANSIColors.green, text: ship)
-        PrintColour(color: ANSIColors.magenta, text: menuStartText)
-        PrintColour(color: ANSIColors.magenta, text: menuSettingsText)
-        PrintColour(color: ANSIColors.magenta, text: menuExitText)
+
+        for (index, menu) in MenuText.ListAll().enumerated() {
+            PrintColour(color: ANSIColors.magenta, text: "\(index + 1) - \(menu)")
+        }
+
     }
 }
