@@ -73,10 +73,9 @@ class AIStepper: Stepper {
 
     func PasteHelpFieldIfKnowVector(map: inout Map, coordY: Int, coordX: Int) {
         let field = map.GetField()
-        var y: Int
-        var x: Int
-        y = 0
-        x = 0
+        var y: Int = 0
+        var x: Int = 0
+
         for j in -1...1 {
             for i in -1...1 {
                 if !map.isBadCoordinate(y: coordY + j, x: coordX + i)
@@ -86,10 +85,9 @@ class AIStepper: Stepper {
                 }
             }
         }
-        var tempX: Int
-        var tempY: Int
-        tempX = 0
-        tempY = 0
+        var tempX: Int = 0
+        var tempY: Int = 0
+
         while (x != y)
                       && !map.isBadCoordinate(y: coordY + tempY, x: coordX + tempX)
                       && field[coordY + tempY][coordX + tempX] == SymbolField.Hit.rawValue {
@@ -117,6 +115,7 @@ class AIStepper: Stepper {
 
     func PasteHelpField(map: inout Map, coordY: Int, coordX: Int) {
         let field = map.GetField()
+
         for j in -1...1 {
             for i in -1...1 {
                 if !map.isBadCoordinate(y: coordY + j, x: coordX + i)

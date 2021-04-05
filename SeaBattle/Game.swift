@@ -6,6 +6,7 @@
 import Foundation
 
 class Game {
+
     private var player1: Player?
     private var player2: Player?
     private var printer: PrinterGame
@@ -19,6 +20,7 @@ class Game {
     func GetPlayer1() -> Player? {
         return player1
     }
+
     func GetPlayer2() -> Player? {
         return player2
     }
@@ -27,19 +29,19 @@ class Game {
         let (coordY, coordX) = friend.GetCoordinate(map: friend.GetEnemyMap())
         let (kill, shot) = enemy.MakeShot(coordY: coordY, coordX: coordX)
         let value = shot ? SymbolField.Hit.rawValue : SymbolField.Miss.rawValue
+
         friend.SetEnemyMap(coordY: coordY, coordX: coordX, value: value,kill: kill)
         enemy.SetFriendMap(coordY: coordY, coordX: coordX, value: value,kill: kill)
-
         return shot ? isStepFirstPlayer : !isStepFirstPlayer
     }
 
     func ChangeSettings(settings: inout Settings) {
         var num = 0
+
         while num != SettingsText.getIndexToMenu {
             printer.PrintSettings(settings: settings)
             num = InputPlayer.GetCase() - 1
-            print(num, SettingsText.getToPrinterClearIndex, SettingsText.getStepFirstIndex, SettingsText.getIndexToMenu)
-            switch(num) {
+            switch num {
             case SettingsText.getToPrinterClearIndex:
                 settings.SetConsoleClear(consoleClear: !settings.GetSettings().consoleClear)
             case SettingsText.getStepFirstIndex:
@@ -54,6 +56,7 @@ class Game {
     func StartGame() {
         var menu = Menu.mainMenu
         var settings = Settings()
+
         printer.PrintMenu()
         while menu != Menu.quitGame {
             menu = InputPlayer.ParsePlayerInput(menu: menu)
@@ -74,6 +77,7 @@ class Game {
 
     func StartMatch() {
         var lastStepId: Int = 0
+
         while player1?.isAlive ?? false && player2?.isAlive ?? false  {
             if isStepFirstPlayer {
                 game.printer.PrintMap(player: game.GetPlayer1())
@@ -82,8 +86,7 @@ class Game {
                 game.printer.PrintShot(logLastShot: logLastShot)
                 if logLastEnemyStep?.last != nil && logLastEnemyStep?.last??.id ?? 0 > lastStepId {
                     game.printer.PrintLastStep(logLastStep: logLastEnemyStep)
-                    lastStepId = logLastEnemyStep?.last?!.id ?? 0
-                } else if logLastShot?.shot == true {
+                    lastStepId = logLastEnemyStep?.last??.id ?? 0
                 }
                 isStepFirstPlayer = StepPlayer(isStepFirstPlayer: isStepFirstPlayer, friend: player1!, enemy: player2!)
             } else {

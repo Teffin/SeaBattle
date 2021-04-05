@@ -18,6 +18,7 @@
 		5D04548CC95FAFAF92B14508 /* MenuText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D045BD1832BC58FADED53CA /* MenuText.swift */; };
 		5D04549722A55A980CDDE459 /* AIStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D045ED1B3A7293896A31E07 /* AIStepper.swift */; };
 		5D0454E94E5B362B673529D5 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D04577F5F2AA4C92A48034C /* Player.swift */; };
+		5D04553158EC0A84CAA112D8 /* ShotValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D04522D3BBD2916E146A850 /* ShotValue.swift */; };
 		5D045711AB74553465D022B2 /* RandomFillField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D045AF2E20164205AC52B25 /* RandomFillField.swift */; };
 		5D0458317561211D078C165C /* Filler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D04524049E6B2C015502A7B /* Filler.swift */; };
 		5D04592E264990C1CFE08C7E /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 5D04576D4AEA8027E2720C6A /* Makefile */; };
@@ -27,6 +28,7 @@
 		5D045DB73CD3D8C399C99C10 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D045D2AAE37AFA2FC54C800 /* main.swift */; };
 		5D045DD71E2AABF71B52497E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D045680D5FBEF6F7B9C47BB /* Settings.swift */; };
 		5D045DDFFB59C750338A3B82 /* ANSIColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D04597B2F791D56A59917FB /* ANSIColors.swift */; };
+		5D045EDDC3209EACAC103394 /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D045747A1809D274D393DED /* Validate.swift */; };
 		5D045F8DF35B320396DBD960 /* Stepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D04532A5348BBDE7463BF43 /* Stepper.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +45,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5D04522D3BBD2916E146A850 /* ShotValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShotValue.swift; sourceTree = "<group>"; };
 		5D04524049E6B2C015502A7B /* Filler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filler.swift; sourceTree = "<group>"; };
 		5D045268E5441345A2727498 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		5D045315FAF3C1CDBDEE6846 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
@@ -51,6 +54,7 @@
 		5D045628B662D033F04903A2 /* ParsStepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParsStepper.swift; sourceTree = "<group>"; };
 		5D045680D5FBEF6F7B9C47BB /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5D0456A6880A38E0FB8905A3 /* PrintConsoleGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintConsoleGame.swift; sourceTree = "<group>"; };
+		5D045747A1809D274D393DED /* Validate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		5D04576D4AEA8027E2720C6A /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		5D04577F5F2AA4C92A48034C /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		5D045807906930CD63526F70 /* SeaBattle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SeaBattle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +114,8 @@
 				5D045FF676811191E4E8622E /* SettingsText.swift */,
 				5D045BD1832BC58FADED53CA /* MenuText.swift */,
 				5D04597B2F791D56A59917FB /* ANSIColors.swift */,
+				5D04522D3BBD2916E146A850 /* ShotValue.swift */,
+				5D045747A1809D274D393DED /* Validate.swift */,
 			);
 			path = SeaBattle;
 			sourceTree = "<group>";
@@ -193,6 +199,8 @@
 				5D0459523FAC4929C5680434 /* SettingsText.swift in Sources */,
 				5D04548CC95FAFAF92B14508 /* MenuText.swift in Sources */,
 				5D045DDFFB59C750338A3B82 /* ANSIColors.swift in Sources */,
+				5D04553158EC0A84CAA112D8 /* ShotValue.swift in Sources */,
+				5D045EDDC3209EACAC103394 /* Validate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

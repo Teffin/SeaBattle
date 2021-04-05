@@ -6,6 +6,7 @@
 import Foundation
 
 class PrintConsoleGame: PrinterGame {
+
     let winMessage = "Congratulations!!! You Win!!!"
     let loseMessage = "So sad, your Lost...Try again - you can do it"
     let enemyTitle = " + + + EnemyField + + + "
@@ -27,16 +28,9 @@ class PrintConsoleGame: PrinterGame {
                ─▓▓B▓▓▓A▓▓▓T▓▓▓T▓▓▓L▓▓▓E▓▓▓─\n\
                ──▀██████████████████████▀──\n
                """
-
-
     let coordY = 10
     let coordXLine = Array<Character>("abcdefghij")
-
     private var isClearConsole = true
-
-    public func SetSettingsPrint(clearConsole: Bool = true) {
-        isClearConsole = clearConsole
-    }
 
     private func printSymbolColour(ch: Int) {
         PrintColour(color: GetColourByInt(ch: ch), text: GetSymbol(ch: ch).rawValue, terminator: "")
@@ -70,13 +64,14 @@ class PrintConsoleGame: PrinterGame {
             }
             print(j, terminator: "")
             print(" ", terminator: "")
-
             printLine(line: line)
         }
     }
+
     func PrintToDo() {
         PrintColour(color: ANSIColors.yellow, text: toDoText)
     }
+
     func PrintColour(color: ANSIColors, text: String, terminator: String = "\n") {
         print(color.rawValue + text + ANSIColors.default.rawValue, terminator: terminator)
     }
@@ -94,72 +89,6 @@ class PrintConsoleGame: PrinterGame {
     func ClearConsole() {
         if isClearConsole {
             print("\u{001B}[2J", terminator: "")
-        }
-    }
-
-    public func PrintQuitMessage() {
-        ClearConsole()
-        PrintColour(color: ANSIColors.magenta, text: quitText)
-    }
-
-    public func PrintMap(player: Player?) {
-        ClearConsole()
-        PrintTitle()
-        for j in 0...coordY {
-            printBlock(j: j, line: player!.GetMap().GetFieldLine(coordY: j == 0 ? 0 : (j - 1)))
-            print("\t\t", terminator: "")
-            printBlock(j: j, line: player!.GetEnemyMap().GetFieldLine(coordY: j == 0 ? 0 : (j - 1)))
-            print()
-        }
-        PrintBottom()
-    }
-
-    public func AnnouncementOfResults(haveShip: Bool) {
-        var color: ANSIColors
-        var text: String
-        if haveShip {
-            color = ANSIColors.green
-            text = winMessage
-        } else {
-            color = ANSIColors.cyan
-            text = loseMessage
-        }
-        PrintColour(color: color, text: text)
-    }
-
-    public func PrintLastStep(logLastStep: ShotValue?) {
-        if let log = logLastStep {
-            print(enemyText, terminator: " ")
-            PrintColour(color: ANSIColors.yellow ,text: "\(coordXLine[log.coordX])\(log.coordY + 1)", terminator: ".")
-            PrintColour(color: log.shot ? ANSIColors.red : ANSIColors.cyan, text: " \(log.shot ? shotShipText : missText)", terminator: "" )
-            if log.shot {
-                PrintColour(color: log.shot ? ANSIColors.red : ANSIColors.cyan, text: "\(log.kill ? killText : notKillText)", terminator: "" )
-            }
-           print()
-        }
-    }
-
-    public func PrintLastStep(logLastStep: [ShotValue?]?) {
-        if let logs = logLastStep {
-            for log in logs {
-                PrintLastStep(logLastStep: log)
-            }
-        }
-    }
-
-    public func PrintShot(logLastShot: ShotValue?) {
-        let shot = logLastShot
-        if shot != nil {
-            PrintColour(color: ANSIColors.yellow ,text: "\(coordXLine[shot!.coordX])\(shot!.coordY + 1)", terminator: ".")
-        }
-        if logLastShot?.shot == true {
-            PrintColour(color: ANSIColors.green, text: successShot, terminator: ".")
-        }
-        if logLastShot?.kill == true {
-            PrintColour(color: ANSIColors.red, text: successKill, terminator: ".")
-        }
-        if shot != nil {
-            print()
         }
     }
 
@@ -193,6 +122,77 @@ class PrintConsoleGame: PrinterGame {
         for (index, menu) in MenuText.ListAll().enumerated() {
             PrintColour(color: ANSIColors.magenta, text: "\(index + 1) - \(menu)")
         }
+    }
 
+    public func PrintQuitMessage() {
+        ClearConsole()
+        PrintColour(color: ANSIColors.magenta, text: quitText)
+    }
+
+    public func PrintMap(player: Player?) {
+        ClearConsole()
+        PrintTitle()
+        for j in 0...coordY {
+            printBlock(j: j, line: player!.GetMap().GetFieldLine(coordY: j == 0 ? 0 : (j - 1)))
+            print("\t\t", terminator: "")
+            printBlock(j: j, line: player!.GetEnemyMap().GetFieldLine(coordY: j == 0 ? 0 : (j - 1)))
+            print()
+        }
+        PrintBottom()
+    }
+
+    public func SetSettingsPrint(clearConsole: Bool = true) {
+        isClearConsole = clearConsole
+    }
+
+    public func AnnouncementOfResults(haveShip: Bool) {
+        var color: ANSIColors
+        var text: String
+
+        if haveShip {
+            color = ANSIColors.green
+            text = winMessage
+        } else {
+            color = ANSIColors.cyan
+            text = loseMessage
+        }
+        PrintColour(color: color, text: text)
+    }
+
+    public func PrintLastStep(logLastStep: ShotValue?) {
+        if let log = logLastStep {
+            print(enemyText, terminator: " ")
+            PrintColour(color: ANSIColors.yellow ,text: "\(coordXLine[log.coordX])\(log.coordY + 1)", terminator: ".")
+            PrintColour(color: log.shot ? ANSIColors.red : ANSIColors.cyan, text: " \(log.shot ? shotShipText : missText)", terminator: "" )
+            if log.shot {
+                PrintColour(color: log.shot ? ANSIColors.red : ANSIColors.cyan, text: "\(log.kill ? killText : notKillText)", terminator: "" )
+            }
+           print()
+        }
+    }
+
+    public func PrintLastStep(logLastStep: [ShotValue?]?) {
+        if let logs = logLastStep {
+            for log in logs {
+                PrintLastStep(logLastStep: log)
+            }
+        }
+    }
+
+    public func PrintShot(logLastShot: ShotValue?) {
+        let shot = logLastShot
+
+        if shot != nil {
+            PrintColour(color: ANSIColors.yellow ,text: "\(coordXLine[shot!.coordX])\(shot!.coordY + 1)", terminator: ".")
+        }
+        if logLastShot?.shot == true {
+            PrintColour(color: ANSIColors.green, text: successShot, terminator: ".")
+        }
+        if logLastShot?.kill == true {
+            PrintColour(color: ANSIColors.red, text: successKill, terminator: ".")
+        }
+        if shot != nil {
+            print()
+        }
     }
 }

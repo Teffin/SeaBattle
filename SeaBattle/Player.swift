@@ -6,6 +6,7 @@
 import Foundation
 
 class Player {
+
     private var map: Map
     private var enemyMap = Map()
     private var stepper: Stepper
@@ -53,7 +54,6 @@ class Player {
     }
 
     func SetFriendMap(coordY: Int, coordX: Int, value: Int, kill: Bool) {
-
         SetField(sameMap: &map, coordY: coordY, coordX: coordX, value: value, kill: kill)
     }
 
@@ -73,14 +73,12 @@ class Player {
         let ship = map.GetFieldPoint(coordY: coordY, coordX: coordX)
         if ship > 0 {
             shot = true
-
             if map.SetShips(ship: ship) <= 0 {
                 kill = true
             }
         } else if ship == SymbolField.Hit.rawValue {
             shot = true
         }
-
         return (kill, shot)
     }
 }

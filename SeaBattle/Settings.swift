@@ -19,13 +19,10 @@ import Foundation
     }
 
     mutating func SetConsoleClear(consoleClear: Bool) {
-        print("SetConsole")
-
         self.isConsoleClear = consoleClear
     }
 
     mutating func SetStepFirst(stepFirst: Bool) {
-        print("SetStepFirst")
         self.isStepFirstPlayer = stepFirst
     }
 

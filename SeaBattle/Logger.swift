@@ -6,7 +6,6 @@
 import Foundation
 
 protocol Logger {
-
     func SaveShot(coordX: Int, coordY: Int, shot: Bool, kill: Bool)
     func GetLastShot() -> ShotValue?
     func GetLastStep() -> [ShotValue?]?

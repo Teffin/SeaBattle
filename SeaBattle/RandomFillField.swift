@@ -32,6 +32,7 @@ class RandomFillField : Filler {
     func isBadCoordinate(y: Int, x: Int) -> Bool {
         (x < 0) || (x > 9) || (y < 0) || (y > 9)
     }
+
     func PlaceRandomShip(shipNumber: Int, ship: Int) {
         var coordX = Int.random(in: 0..<10)
         var coordY = Int.random(in: 0..<10)
@@ -63,7 +64,8 @@ class RandomFillField : Filler {
         }
         PutShip(y: tempCoordY, x: tempCoordX, isVertical: isVertical, shipNumber: shipNumber, ship: ship)
     }
-    func PutTempSimbol(y: Int, x: Int)
+
+    func PutTempSymbol(y: Int, x: Int)
     {
         for j in -1...1 {
             for i in -1...1 {
@@ -77,12 +79,14 @@ class RandomFillField : Filler {
             }
         }
     }
+
     func PutShip(y: Int, x: Int, isVertical: Bool, shipNumber: Int, ship: Int) {
         var coordY = y
         var coordX = x
+
         for _ in 0..<ship {
             self.map.SetFieldPoint(coordY: coordY, coordX: coordX, value: shipNumber)
-            PutTempSimbol(y: coordY, x: coordX)
+            PutTempSymbol(y: coordY, x: coordX)
             if isVertical {
                 coordY -= 1
             } else {
@@ -91,7 +95,7 @@ class RandomFillField : Filler {
         }
     }
 
-    func ClearTempSimbol() {
+    func ClearTempSymbol() {
         for coordY in 0..<10 {
             for coordX in 0..<10 {
                 if self.map.GetFieldPoint(coordY: coordY, coordX: coordX) < 0 {
@@ -102,13 +106,13 @@ class RandomFillField : Filler {
     }
 
     func RandomFillMap() -> Map {
-
         var shipNumber = 1
+
         for ship in self.map.GetShips() {
             PlaceRandomShip(shipNumber: shipNumber, ship: ship)
             shipNumber += 1
         }
-        ClearTempSimbol()
+        ClearTempSymbol()
         return self.map
     }
 }

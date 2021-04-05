@@ -10,6 +10,7 @@ class InputPlayer {
     static let inputText = "Input number for choose: "
     static let anyKeyText = "Press Enter to continue..."
     static let somethingWrong = "SomeThingWrong"
+
     init() {
 
     }
@@ -43,7 +44,7 @@ class InputPlayer {
 
     static func PrintAndWaitAnyKey() {
         print(anyKeyText, terminator: "")
-        readLine()
+        _ = readLine()
     }
 
     static func PrintError() {

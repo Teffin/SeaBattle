@@ -8,7 +8,6 @@ import Foundation
 struct Map {
 
     private var field = Array(repeating:([Int](repeating: 0, count: 10)), count: 10)
-
     private var ships: [Int] = [4,3,3,2,2,2,1,1,1,1]
 
     public func isBadCoordinate(y: Int, x: Int) -> Bool {
@@ -18,6 +17,7 @@ struct Map {
     func GetField() -> Array<[Int]> {
         field
     }
+
     func GetShips() -> [Int] {
         ships
     }

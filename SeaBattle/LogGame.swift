@@ -5,15 +5,10 @@
 
 import Foundation
 
-struct ShotValue {
-    var id: Int
-    var coordX: Int
-    var coordY: Int
-    var shot: Bool
-    var kill: Bool
-}
+
 
 class LogGame: Logger {
+
     private var id: Int
     private var lastShot: ShotValue?
     private var lastStep: [ShotValue?]?
