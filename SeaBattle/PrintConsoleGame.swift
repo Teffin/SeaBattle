@@ -18,15 +18,13 @@ class PrintConsoleGame: PrinterGame {
     let notKillText = ", but not kill"
     let enemyText = "Enemy shot to"
     let successShot = " Good Shot ┐(・。・┐) ♪"
-    let successKill = " The ship is blown up ~~~~~~~[]=¤ԅ( ◔益◔ )ᕗ"
+    let successKill = " The ship is blown up ᕦ༼◣_◢༽つ"
     let quitText = "See you! s( ^ ‿ ^)-b"
     let toDoText = "//TODO (⊃｡•́‿•̀｡)⊃━☆ﾟ.*･｡ﾟ"
     let ship = """
-               ─────────▄▄─▄▄─▄▄───────────\n\
-               ──────────█──█──█───────────\n\
-               ───▒▒▒▒▒S▒▒▒E▒▒▒A▒▒▒▒▒▒▒────\n\
-               ─▓▓B▓▓▓A▓▓▓T▓▓▓T▓▓▓L▓▓▓E▓▓▓─\n\
-               ──▀██████████████████████▀──\n
+               ░█▀▀▀█ ░█▀▀▀ ─█▀▀█ 　 ░█▀▀█ ─█▀▀█ ▀▀█▀▀ ▀▀█▀▀ ░█─── ░█▀▀▀ 
+               ─▀▀▀▄▄ ░█▀▀▀ ░█▄▄█ 　 ░█▀▀▄ ░█▄▄█ ─░█── ─░█── ░█─── ░█▀▀▀ 
+               ░█▄▄▄█ ░█▄▄▄ ░█─░█ 　 ░█▄▄█ ░█─░█ ─░█── ─░█── ░█▄▄█ ░█▄▄▄\n
                """
     let coordY = 10
     let coordXLine = Array<Character>("abcdefghij")
@@ -118,7 +116,6 @@ class PrintConsoleGame: PrinterGame {
     func PrintMenu() {
         ClearConsole()
         PrintColour(color: ANSIColors.green, text: ship)
-
         for (index, menu) in MenuText.ListAll().enumerated() {
             PrintColour(color: ANSIColors.magenta, text: "\(index + 1) - \(menu)")
         }

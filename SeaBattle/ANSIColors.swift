@@ -28,12 +28,10 @@ func GetColourByInt(ch: Int) -> ANSIColors {
     case 0:
         return .white
     case -1:
-        return .black
+        return .cyan
     case -2:
-        return .black
+        return .cyan
     case -3:
-        return .red
-    case -4:
         return .red
     default:
         return .`default`
