@@ -27,6 +27,8 @@ Realization:
 5. AI - Search in field temp symbol, if not, Randoming dot and check her 
     for empting, if empty - shot there, if hit - place around temp symbol.
 
+6. Color - color print game. And print fields horisontal^^
+
 To Do:
 
 1. Need filling map take out in game class, for print map when manual filling.
