@@ -1,6 +1,4 @@
- ░█▀▀▀█ ░█▀▀▀ ─█▀▀█ 　 ░█▀▀█ ─█▀▀█ ▀▀█▀▀ ▀▀█▀▀ ░█─── ░█▀▀▀ 
- ─▀▀▀▄▄ ░█▀▀▀ ░█▄▄█ 　 ░█▀▀▄ ░█▄▄█ ─░█── ─░█── ░█─── ░█▀▀▀ 
- ░█▄▄▄█ ░█▄▄▄ ░█─░█ 　 ░█▄▄█ ░█─░█ ─░█── ─░█── ░█▄▄█ ░█▄▄▄
+▟▛ █☰ ▞▚  ▙ ▞▚ ▜▛ ▜▛ ▙▄ █☰
 
 
 
@@ -40,3 +38,7 @@ To Do:
 4. Refactoring parse and validate user input. + Add exit to menu.
 
 5. Change color in settings, + add possibility choose background for all game.
+
+6. Variable print map - Vertical/Horizontal
+
+7. 2 Player Mode -> print two Fields for marks
