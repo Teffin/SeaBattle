@@ -5,7 +5,7 @@
 
 import Foundation
 
-class RandomFillField : Filler {
+class FillField: Filler {
     private var map = Map()
 
     init() { }
@@ -105,7 +105,7 @@ class RandomFillField : Filler {
         }
     }
 
-    func RandomFillMap() -> Map {
+    public func RandomFillMap() -> Map {
         var shipNumber = 1
 
         for ship in self.map.GetShips() {
@@ -115,4 +115,51 @@ class RandomFillField : Filler {
         ClearTempSymbol()
         return self.map
     }
+
+    public func ManualFillMap() -> Map {
+
+        return self.map
+    }
 }
+
+
+//func FillMap(isAuto: Bool = true) -> Map {
+//    var coordX: Int = 0
+//    var coordY: Int = 0
+//    var isVertical: Bool = false
+//    var shipNumber = 1
+//
+//    for ship in self.map.GetShips() {
+//        if isAuto {
+//            coordX = Int.random(in: 0..<10)
+//            coordY = Int.random(in: 0..<10)
+//            isVertical = (Int.random(in: 0..<2) == 1)
+//        } else {
+//            for str in getMap() {
+//                print(str)
+//            }
+//            print("We place \(ship) deck's ship \(inputCoordText)", terminator: "")
+//            var isValidInput = false
+//            while !isValidInput {
+//                var input = readLine()
+//                input = input?.lowercased()
+//                input = String(input!.filter { !" \n\t\r".contains($0) })
+//                (isValidInput, coordX, coordY) = Validate.ValidateAndParseInput(input: input)
+//            }
+//            print(inputVerticalText, terminator: "")
+//            isValidInput = false
+//            while !isValidInput {
+//                var input = readLine()
+//                input = input?.lowercased()
+//                input = String(input!.filter { !" \n\t\r".contains($0) })
+//                (isValidInput, isVertical) = Validate.ValidateConfirmation(input: input)
+//            }
+//
+//        }
+//        SearchPlaceShip(shipNumber: shipNumber, ship: ship, X: coordX, Y: coordY, isVertical: isVertical)
+//
+//        shipNumber += 1
+//    }
+//    ClearTempSymbol()
+//    return self.map
+//}

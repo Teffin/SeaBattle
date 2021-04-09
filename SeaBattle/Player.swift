@@ -12,9 +12,9 @@ class Player {
     private var stepper: Stepper
     private var logger: Logger?
 
-    init(filler: Filler, stepper: Stepper, logger: Logger? = nil) {
+    init(map: Map, stepper: Stepper, logger: Logger? = nil) {
         self.logger = logger
-        map = filler.RandomFillMap()
+        self.map = map
         self.stepper = stepper
     }
 

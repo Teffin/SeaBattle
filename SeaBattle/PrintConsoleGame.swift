@@ -29,6 +29,7 @@ class PrintConsoleGame: PrinterGame {
     let coordY = 10
     let coordXLine = Array<Character>("abcdefghij")
     private var isClearConsole = true
+    private var isHorizontal = true
 
     private func printSymbolColour(ch: Int) {
         PrintColour(color: GetColourByInt(ch: ch), text: GetSymbol(ch: ch).rawValue, terminator: "")
@@ -74,10 +75,65 @@ class PrintConsoleGame: PrinterGame {
         print(color.rawValue + text + ANSIColors.default.rawValue, terminator: terminator)
     }
 
+    func PrintTitle(isFirstPlayer: Bool) {
+
+        let firstPrint = isFirstPlayer ? [ANSIColors.green, yourTitle] : [ANSIColors.red, enemyTitle]
+        let secondPrint = !isFirstPlayer ? [ANSIColors.green, yourTitle] : [ANSIColors.red, enemyTitle]
+
+        PrintColour(color: firstPrint[0] as! ANSIColors,text: firstPrint[1] as! String, terminator: "\t\t")
+        PrintColour(color: secondPrint[0] as! ANSIColors,text: secondPrint[1] as! String)
+
+//        if isFirstPlayer {
+//            PrintColour(color: ANSIColors.green, text: yourTitle, terminator: "\t\t")
+//            PrintColour(color: ANSIColors.red, text: enemyTitle)
+//        } else {
+//            PrintColour(color: ANSIColors.red, text: enemyTitle, terminator: "\t\t")
+//            PrintColour(color: ANSIColors.green, text: yourTitle)
+//        }
+
+
+
+//
+//        PrintColour(color: ANSIColors.green, text: yourTitle, terminator: "\t\t")
+//        PrintColour(color: ANSIColors.red, text: enemyTitle)
+    }
+
+
+
+
+
+
+
     func PrintTitle() {
         PrintColour(color: ANSIColors.green, text: yourTitle, terminator: "\t\t")
         PrintColour(color: ANSIColors.red, text: enemyTitle)
     }
+
+
+
+//{
+//    while 2 {
+//    printTitleVertical()
+//    printMap()
+//
+//
+//
+//}
+//
+//
+//
+//
+//
+//
+//
+//}
+
+
+
+
+
+
+
 
     func PrintBottom() {
         PrintColour(color: ANSIColors.magenta, text: bottomLine)
@@ -126,6 +182,33 @@ class PrintConsoleGame: PrinterGame {
         PrintColour(color: ANSIColors.magenta, text: quitText)
     }
 
+    func PrintHorizontalMap(mapFirst: Map, mapSecond: Map, isFirstPlayer: Bool) {
+
+        PrintTitle(isFirstPlayer: isFirstPlayer)
+        for j in 0...coordY {
+            printBlock(j: j, line: mapFirst.GetFieldLine(coordY: j == 0 ? 0 : (j - 1)))
+            print("\t\t", terminator: "")
+            printBlock(j: j, line: mapSecond.GetFieldLine(coordY: j == 0 ? 0 : (j - 1)))
+            print()
+        }
+        PrintBottom()
+    }
+
+    func PrintVerticalMap(mapFirst: Map, mapSecond: Map) {
+        PrintTitle()
+
+    }
+
+    public func PrintMap(mapFirst: Map, mapSecond: Map) {
+        ClearConsole()
+        if isHorizontal {
+            PrintHorizontalMap(mapFirst: mapFirst, mapSecond: mapSecond, isFirstPlayer: true)
+        } else {
+            PrintVerticalMap(mapFirst: mapFirst, mapSecond: mapSecond)
+        }
+
+    }
+
     public func PrintMap(player: Player?) {
         ClearConsole()
         PrintTitle()
@@ -138,8 +221,9 @@ class PrintConsoleGame: PrinterGame {
         PrintBottom()
     }
 
-    public func SetSettingsPrint(clearConsole: Bool = true) {
+    public func SetSettingsPrint(clearConsole: Bool, orientationHorizontal: Bool) {
         isClearConsole = clearConsole
+        isHorizontal = orientationHorizontal
     }
 
     public func AnnouncementOfResults(haveShip: Bool) {

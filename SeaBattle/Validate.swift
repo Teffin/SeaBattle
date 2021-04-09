@@ -20,6 +20,21 @@ class Validate {
         return -1
     }
 
+    public static func ValidateConfirmation(input: String?) -> (Bool, Bool) {
+        if input != "" {
+            let count = input?.count
+            let str = Array(input ?? "")
+            if  count == 1 {
+                if str[0] == "y"  {
+                    return(true, true)
+                } else if str[0] == "n" {
+                    return(true, false)
+                }
+            }
+        }
+        return (false, false)
+    }
+    
     public static func ValidateInput(input: String?) -> (Bool, Int, Int) {
 
         if input != "" {

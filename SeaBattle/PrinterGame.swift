@@ -14,5 +14,6 @@ protocol PrinterGame {
     func PrintMenu()
     func PrintToDo()
     func PrintSettings(settings: Settings)
-    func SetSettingsPrint(clearConsole: Bool)
+    func SetSettingsPrint(clearConsole: Bool, orientationHorizontal: Bool)
+    func PrintHorizontalMap(mapFirst: Map, mapSecond: Map, isFirstPlayer: Bool)
 }

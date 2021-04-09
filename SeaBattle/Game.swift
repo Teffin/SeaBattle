@@ -11,8 +11,10 @@ class Game {
     private var player2: Player?
     private var printer: PrinterGame
     private var isStepFirstPlayer: Bool
+    private var isTwoPlayer: Bool
 
     init() {
+        isTwoPlayer = false
         isStepFirstPlayer = true
         printer = PrintConsoleGame()
     }
@@ -68,7 +70,7 @@ class Game {
                 printer.PrintMenu()
             case .settings:
                 ChangeSettings(settings: &settings)
-                printer.SetSettingsPrint(clearConsole: settings.GetSettings().consoleClear)
+                AcceptSettings(settings: settings)
             case .quitGame:
                 printer.PrintQuitMessage()
             }
@@ -80,7 +82,10 @@ class Game {
 
         while player1?.isAlive ?? false && player2?.isAlive ?? false  {
             if isStepFirstPlayer {
-                game.printer.PrintMap(player: game.GetPlayer1())
+                game.printer.PrintHorizontalMap(mapFirst: game.GetPlayer1()!.GetMap(),
+                        mapSecond: game.GetPlayer1()!.GetEnemyMap(),
+                        isFirstPlayer: isStepFirstPlayer)
+
                 let logLastEnemyStep = player2?.GetLastStep()
                 let logLastShot = player1?.GetLastShot()
                 game.printer.PrintShot(logLastShot: logLastShot)
@@ -97,9 +102,37 @@ class Game {
         game.printer.AnnouncementOfResults(haveShip: player1?.isAlive ?? false )
     }
 
+    func AcceptSettings(settings: Settings) {
+        let settingsValue = settings.GetSettings()
+        printer.SetSettingsPrint(clearConsole: settingsValue.consoleClear, orientationHorizontal: settingsValue.isHorizontalRotation)
+        isStepFirstPlayer = settingsValue.stepFirstPlayer
+    }
+
+    func IsWantManualFill() -> Bool {
+        var isValid: Bool = false
+        var isManual: Bool = false
+        while !isValid {
+            let input = ConsoleInput.ParseInput(textToPrint: "Do you want manual fill field? (y/n) :")
+            (isValid, isManual) = Validate.ValidateConfirmation(input: input)
+        }
+    }
+
+    func InitializePlayer(settings: Settings, isAI: Bool) -> Player {
+        var stepper: Stepper
+        var map: Map
+        var filler = FillField()
+
+        stepper = isAI ? AIStepper() : ParsStepper()
+        map = !isAI && IsWantManualFill() ? filler.ManualFillMap() : filler.RandomFillMap()
+
+        return Player(map: map, stepper: stepper, logger: LogGame())
+    }
+
     func InitializeGame(settings: Settings) {
-        isStepFirstPlayer = settings.GetSettings().stepFirstPlayer
-        player1 = Player(filler: RandomFillField(), stepper: ParsStepper(), logger: LogGame())
-        player2 = Player(filler: RandomFillField(), stepper: AIStepper(), logger: LogGame())
+        player1 = InitializePlayer(settings: settings, isAI: false)
+        player2 = InitializePlayer(settings: settings, isAI: true)
+
+//        player1 = Player(filler: FillField(), stepper: ParsStepper(), logger: LogGame())
+//        player2 = Player(filler: FillField(), stepper: AIStepper(), logger: LogGame())
     }
 }
