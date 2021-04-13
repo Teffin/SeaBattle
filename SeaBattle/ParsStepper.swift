@@ -19,9 +19,7 @@ class ParsStepper: Stepper {
 
         while !isValidCoordinate {
             print(inputText, terminator: "")
-            var input = readLine()
-            input = input?.lowercased()
-            input = String(input!.filter { !" \n\t\r".contains($0) })
+            let input = InputPlayer.ConsoleInput()
             (isValidCoordinate, line, row) = Validate.ValidateInput(input: input)
             if !isValidCoordinate {
                 print(unCorrectCoordinateText)

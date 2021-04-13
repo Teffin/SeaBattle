@@ -118,6 +118,37 @@ class FillField: Filler {
 
     public func ManualFillMap() -> Map {
 
+        let inputCoordText = ", please input Coordinate: "
+        let verticalText = "Do you want place your ship vertical? (y/n):"
+
+        var shipNumber = 1
+
+        for ship in self.map.GetShips() {
+            var coordX: Int = 0
+            var coordY: Int = 0
+            var isValidInput: Bool = false
+            var isCanPlace: Bool = false
+            var isVertical: Bool = false
+            while !isCanPlace {
+                while !isValidInput {
+                    print("We place \(ship) deck's ship \(inputCoordText)", terminator: "")
+                    let input = InputPlayer.ConsoleInput()
+                    (isValidInput, coordX, coordY) = Validate.ValidateInput(input: input)
+                    // ValidateInput(input)
+                }
+                isValidInput = false
+                while !isValidInput {
+                    print(verticalText, terminator: "")
+                    let input = InputPlayer.ConsoleInput()
+                    (isValidInput, isVertical) = Validate.ValidateConfirmation(input: input)
+                }
+                //TODO CanPlace??
+                isCanPlace = true
+            }
+            PutShip(y: coordY, x: coordX, isVertical: isVertical, shipNumber: shipNumber, ship: ship)
+            shipNumber += 1
+        }
+        ClearTempSymbol()
         return self.map
     }
 }

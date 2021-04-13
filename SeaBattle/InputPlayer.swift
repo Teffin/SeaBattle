@@ -28,15 +28,20 @@ class InputPlayer {
         return(false, 0)
     }
 
+    static public func ConsoleInput() -> String? {
+        var input = readLine()
+        input = input?.lowercased()
+        input = String(input!.filter { !" \n\t\r".contains($0) })
+        return input
+    }
+
     static func GetCase() -> Int {
         var isValidInput = false
         var parsedNum = 0
 
         while !isValidInput {
             print(inputText, terminator: "")
-            var input = readLine()
-            input = input?.lowercased()
-            input = String(input!.filter { !" \n\t\r".contains($0) })
+            let input = ConsoleInput()
             (isValidInput, parsedNum) = ValidateInput(input: input)
         }
         return parsedNum

@@ -115,6 +115,7 @@ class Game {
             let input = ConsoleInput.ParseInput(textToPrint: "Do you want manual fill field? (y/n) :")
             (isValid, isManual) = Validate.ValidateConfirmation(input: input)
         }
+        return isManual
     }
 
     func InitializePlayer(settings: Settings, isAI: Bool) -> Player {
